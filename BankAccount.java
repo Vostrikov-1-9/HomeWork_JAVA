@@ -2,23 +2,29 @@ public class BankAccount {
     private String ownerName;
     private long balance;
 
-    public BankAccount(String ownerName, long initialBalance) {
+    public BankAccount(String ownerName, long balance) {
         this.ownerName = ownerName;
-        this.balance = initialBalance;
+        this.balance = balance;
     }
 
     public void deposit(long amount) {
         if (amount > 0) {
-            balance += amount;
+            this.balance += amount; // используем this для наглядности
         }
     }
 
     public boolean withdraw(long amount) {
-        if (amount > 0 && amount <= balance) {
+        // Ранний выход, если сумма кривая
+        if (amount <= 0) {
+            return false;
+        }
+
+        if (balance >= amount) {
             balance -= amount;
             return true;
+        } else {
+            return false;
         }
-        return false;
     }
 
     public long getBalance() {
